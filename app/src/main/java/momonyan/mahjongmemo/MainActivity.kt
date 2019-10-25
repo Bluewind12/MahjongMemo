@@ -1,6 +1,8 @@
 package momonyan.mahjongmemo
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -12,20 +14,30 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        button.setOnClickListener {
-            val dialog = AlertDialog.Builder(this)
-            val dialog_view = layoutInflater.inflate(R.layout.name_setting_dialog, null)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nameEntry -> {
+                val dialog = AlertDialog.Builder(this)
+                val dialogView = layoutInflater.inflate(R.layout.name_setting_dialog, null)
 
 
-            dialog.setView(dialog_view)
-                .setPositiveButton("OK") { _, _ ->
-                    nameTextView.text = dialog_view.input1.text.toString()
-                    nameTextView2.text = dialog_view.input2.text.toString()
-                    nameTextView3.text = dialog_view.input3.text.toString()
-                    nameTextView4.text = dialog_view.input4.text.toString()
-                }
-                .show()
-
+                dialog.setView(dialogView)
+                    .setPositiveButton("OK") { _, _ ->
+                        nameTextView.text = dialogView.input1.text.toString()
+                        nameTextView2.text = dialogView.input2.text.toString()
+                        nameTextView3.text = dialogView.input3.text.toString()
+                        nameTextView4.text = dialogView.input4.text.toString()
+                    }
+                    .show()
+            }
         }
+        return super.onOptionsItemSelected(item)
     }
 }
