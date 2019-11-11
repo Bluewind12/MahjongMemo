@@ -7,6 +7,17 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/dataAddFloatActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_edit" />
+
     <androidx.gridlayout.widget.GridLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -19,7 +30,7 @@
                 android:id="@+id/titleTextView"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="名前"
                 app:layout_column="0"
                 app:layout_columnWeight="1"
                 app:layout_row="0" />
@@ -28,7 +39,7 @@
                 android:id="@+id/nameTextView"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="プレイヤー1"
                 app:layout_column="1"
                 app:layout_columnWeight="1"
                 app:layout_row="0" />
@@ -37,7 +48,7 @@
                 android:id="@+id/nameTextView2"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="プレイヤー2"
                 app:layout_column="2"
                 app:layout_columnWeight="1"
                 app:layout_row="0" />
@@ -46,7 +57,7 @@
                 android:id="@+id/nameTextView3"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="プレイヤー3"
                 app:layout_column="3"
                 app:layout_columnWeight="1"
                 app:layout_row="0" />
@@ -55,22 +66,12 @@
                 android:id="@+id/nameTextView4"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="プレイヤー4"
                 app:layout_column="4"
                 app:layout_columnWeight="1"
                 app:layout_row="0" />
 
     </androidx.gridlayout.widget.GridLayout>
-
-    <Button
-            android:text="Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.026"
-            android:layout_marginBottom="16dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
