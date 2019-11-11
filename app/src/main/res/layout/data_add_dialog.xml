@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -18,9 +17,11 @@
             app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/dataAddTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="点数" />
+                android:hint="点数"
+                android:inputType="numberSigned" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -35,9 +36,11 @@
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
 
         <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/dataAddTextInput2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="点数" />
+                android:hint="点数"
+                android:inputType="numberSigned" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -52,9 +55,11 @@
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
 
         <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/dataAddTextInput3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="点数" />
+                android:hint="点数"
+                android:inputType="numberSigned" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -69,9 +74,11 @@
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout7">
 
         <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/dataAddTextInput4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="点数" />
+                android:hint="点数"
+                android:inputType="numberSigned" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <EditText
