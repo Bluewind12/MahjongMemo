@@ -4,10 +4,10 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.GridLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.gridlayout.widget.GridLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.data_add_dialog.view.*
 import kotlinx.android.synthetic.main.name_setting_dialog.view.*
@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private var points = arrayListOf<Int>()
     private var stageCount = 1
     private var stageCountDiff = 0
+    private var flowCount = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,50 +54,62 @@ class MainActivity : AppCompatActivity() {
 
                     //局数の表示
                     if (stageCount != stageCountDiff) {
-                        val stageTextView = TextView(applicationContext)
-                        val stageString = when ((stageCount % 16) / 4) {
+                        val stageTextView = TextView(this)
+                        val stageString = when ((stageCountDiff % 16) / 4) {
                             0 -> "東"
                             1 -> "南"
                             2 -> "西"
                             3 -> "北"
                             else -> "エラー"
                         }
-                        stageTextView.text = stageString + (stageCount % 4 + 1) + "局"
+                        stageTextView.text = stageString + (stageCountDiff % 4 + 1) + "局"
 
-                        val gridParams =
-                            GridLayout.LayoutParams(
-                                GridLayout.spec(stageCount),
-                                GridLayout.spec(0)
+                        val gridParams = GridLayout.LayoutParams(
+                            GridLayout.spec(flowCount),
+                            GridLayout.spec(0, 1.0f)
                             )
-
-                        stageTextView.layoutParams = gridParams
-                        mainGridLayout.addView(stageTextView)
+                        stageTextView.width = 0
+                        mainGridLayout.addView(stageTextView, gridParams)
 
                         //直りん
                         stageCountDiff = stageCount
+                    } else {
+                        val stageTextView = TextView(this)
+                        stageTextView.text = ""
+
+                        val gridParams = GridLayout.LayoutParams(
+                            GridLayout.spec(flowCount),
+                            GridLayout.spec(0, 1.0f)
+                        )
+                        stageTextView.width = 0
+                        mainGridLayout.addView(
+                            stageTextView, gridParams
+                        )
                     }
 
                     //点数表示
                     for (i in 0 until points.size) {
-                        val textView = TextView(applicationContext)
+                        val textView = TextView(this)
                         textView.text = points[i].toString()
                         if (points[i] < 0) {
                             textView.setTextColor(Color.RED)
                         }
                         val gridParams =
                             GridLayout.LayoutParams(
-                                GridLayout.spec(stageCount),
-                                GridLayout.spec(i + 1)
+                                GridLayout.spec(flowCount),
+                                GridLayout.spec(i + 1, 1.0f)
                             )
-                        textView.layoutParams = gridParams
-                        mainGridLayout.addView(textView)
+                        textView.width = 0
+                        mainGridLayout.addView(textView, gridParams)
                     }
 
                     //流れたかどうかの確認
                     if (dialogView.dataAddFlowToggleButton.isChecked) {
                         stageCount++
                     }
+                    flowCount++
                 }
+                .show()
 
         }
 
