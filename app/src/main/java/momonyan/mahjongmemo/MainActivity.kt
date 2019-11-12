@@ -1,6 +1,7 @@
 package momonyan.mahjongmemo
 
-import android.graphics.Bitmap
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
@@ -23,13 +24,79 @@ class MainActivity : AppCompatActivity() {
     private var points = arrayListOf<Int>()
     private var stageName = "-------"
     private var flowCount = 1
-
+    private var saveDataArray = arrayListOf<String>()
+    private var bufferDataArray = arrayListOf<String>()
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        sharedPreferences =
+            getSharedPreferences("MarjongMemoData", Context.MODE_PRIVATE)
 
+        names =
+            stringToArray(sharedPreferences.getString("name", "プレイヤー1,プレイヤー2,プレイヤー3,プレイヤー4")!!)
+
+        //表示変更
+        nameTextView.text = names[0]
+        nameTextView2.text = names[1]
+        nameTextView3.text = names[2]
+        nameTextView4.text = names[3]
+
+        saveDataArray = stringToArray(sharedPreferences.getString("data", "")!!)
+        bufferDataArray = saveDataArray
+        for (data in 0 until saveDataArray.size step 5) {
+            val stageTextView = TextView(this)
+            stageTextView.text = saveDataArray[0 + data]
+            var color = 0
+            when (stageTextView.text.toString().substring(1, 3)) {
+                "1局", "3局" -> {
+                    color = ContextCompat.getColor(this, R.color.blueBackColor)
+                }
+                "2局", "4局" -> {
+                    color = ContextCompat.getColor(this, R.color.whiteBackColor)
+                }
+            }
+
+            //点数表示
+            val pointTexts = arrayListOf<TextView>()
+            for (i in 0 until 4) {
+                val textView = TextView(this)
+                textView.text = saveDataArray[i + data + 1]
+                if (saveDataArray[i + data + 1].toInt() < 0) {
+                    textView.setTextColor(Color.RED)
+                }
+                val gridParams =
+                    GridLayout.LayoutParams(
+                        GridLayout.spec(flowCount),
+                        GridLayout.spec(i + 1, 1.0f)
+                    )
+                textView.width = 0
+                textView.gravity = Gravity.END
+                textView.setBackgroundColor(color)
+                mainGridLayout.addView(textView, gridParams)
+                pointTexts.add(textView)
+            }
+
+
+            val gridParams = GridLayout.LayoutParams(
+                GridLayout.spec(flowCount),
+                GridLayout.spec(0, 1.0f)
+            )
+            stageTextView.width = 0
+            stageTextView.setBackgroundColor(color)
+            mainGridLayout.addView(stageTextView, gridParams)
+
+            //本場表示
+            stageName = saveDataArray[0 + data]
+
+            flowCount++
+
+            stageTextView.setOnClickListener {
+                changeDataDialogCreate(pointTexts, stageTextView)
+            }
+        }
 
         dataAddFloatActionButton.setOnClickListener {
             addDataDialogCreate()
@@ -136,6 +203,17 @@ class MainActivity : AppCompatActivity() {
 
                 //本場表示
                 stageName = stageTitleText + stageNumberText
+
+                bufferDataArray.add(stageName)
+                bufferDataArray.add(points[0].toString())
+                bufferDataArray.add(points[1].toString())
+                bufferDataArray.add(points[2].toString())
+                bufferDataArray.add(points[3].toString())
+
+
+                val editor = sharedPreferences.edit()
+                editor.putString("data", arrayToString(bufferDataArray))
+                editor.apply()
 
                 flowCount++
 
@@ -248,15 +326,42 @@ class MainActivity : AppCompatActivity() {
                             dialogView.input4.text.toString()
                         )
 
+                        for (i in 0 until names.size) {
+                            if (names[i] == "") {
+                                names[i] = "プレイヤー"
+                            }
+                        }
+
+                        val editor = sharedPreferences.edit()
+                        editor.putString("name", arrayToString(names))
+                        editor.apply()
+
                         //表示変更
-                        nameTextView.text = dialogView.input1.text.toString()
-                        nameTextView2.text = dialogView.input2.text.toString()
-                        nameTextView3.text = dialogView.input3.text.toString()
-                        nameTextView4.text = dialogView.input4.text.toString()
+                        nameTextView.text = names[0]
+                        nameTextView2.text = names[1]
+                        nameTextView3.text = names[2]
+                        nameTextView4.text = names[3]
                     }
                     .show()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun arrayToString(array: ArrayList<String>): String {
+        val buffer = StringBuffer()
+        for (string in array) {
+            buffer.append("$string,")
+        }
+        val buf = buffer.toString()
+        return buf.substring(0, buf.length - 1)
+    }
+
+    private fun stringToArray(stringData: String): ArrayList<String> {
+        if (stringData.isNotEmpty()) {
+            return ArrayList(stringData.split(","))
+        } else {
+            return ArrayList()
+        }
     }
 }
