@@ -1,5 +1,6 @@
 package momonyan.mahjongmemo
 
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
@@ -9,6 +10,7 @@ import android.widget.RadioButton
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.gridlayout.widget.GridLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.data_add_dialog.view.*
@@ -76,27 +78,6 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-
-                //点数表示
-                val pointTexts = arrayListOf<TextView>()
-                for (i in 0 until points.size) {
-                    val textView = TextView(this)
-                    textView.text = points[i].toString()
-                    if (points[i] < 0) {
-                        textView.setTextColor(Color.RED)
-                    }
-                    val gridParams =
-                        GridLayout.LayoutParams(
-                            GridLayout.spec(flowCount),
-                            GridLayout.spec(i + 1, 1.0f)
-                        )
-                    textView.width = 0
-                    textView.gravity = Gravity.END
-                    mainGridLayout.addView(textView, gridParams)
-                    pointTexts.add(textView)
-                }
-
-
                 //局数の表示
                 val checkedId = dialogView.radioGroup.checkedRadioButtonId
                 val stageTitleText = if (-1 != checkedId) {
@@ -113,15 +94,47 @@ class MainActivity : AppCompatActivity() {
 
                 val stageTextView = TextView(this)
                 stageTextView.text = stageTitleText + stageNumberText
+                var color = 0
+                when (stageNumberText) {
+                    "1局", "3局" -> {
+                        color = ContextCompat.getColor(this, R.color.blueBackColor)
+                    }
+                    "2局", "4局" -> {
+                        color = ContextCompat.getColor(this, R.color.whiteBackColor)
+                    }
+                }
+
+                //点数表示
+                val pointTexts = arrayListOf<TextView>()
+                for (i in 0 until points.size) {
+                    val textView = TextView(this)
+                    textView.text = points[i].toString()
+                    if (points[i] < 0) {
+                        textView.setTextColor(Color.RED)
+                    }
+                    val gridParams =
+                        GridLayout.LayoutParams(
+                            GridLayout.spec(flowCount),
+                            GridLayout.spec(i + 1, 1.0f)
+                        )
+                    textView.width = 0
+                    textView.gravity = Gravity.END
+                    textView.setBackgroundColor(color)
+                    mainGridLayout.addView(textView, gridParams)
+                    pointTexts.add(textView)
+                }
+
+
 
                 val gridParams = GridLayout.LayoutParams(
                     GridLayout.spec(flowCount),
                     GridLayout.spec(0, 1.0f)
                 )
                 stageTextView.width = 0
+                stageTextView.setBackgroundColor(color)
                 mainGridLayout.addView(stageTextView, gridParams)
 
-                //直りん
+                //本場表示
                 stageName = stageTitleText + stageNumberText
 
                 flowCount++
@@ -181,9 +194,18 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     ""
                 }
+                var color: Int = 0
+                when (stageNumberText) {
+                    "1局", "3局" -> {
+                        color = ContextCompat.getColor(this, R.color.blueBackColor)
+                    }
+                    "2局", "4局" -> {
+                        color = ContextCompat.getColor(this, R.color.whiteBackColor)
+                    }
+                }
 
                 stageText.text = stageTitleText + stageNumberText
-
+                stageText.setBackgroundColor(color)
                 dataInputTextViews.forEach {
                     if (it.text.toString() == "") {
                         points.add(0)
@@ -196,6 +218,7 @@ class MainActivity : AppCompatActivity() {
                     if (points[i] < 0) {
                         arrayText[i].setTextColor(Color.RED)
                     }
+                    arrayText[i].setBackgroundColor(color)
                 }
 
 
