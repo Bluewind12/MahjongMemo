@@ -356,6 +356,19 @@ class MainActivity : AppCompatActivity() {
                     }
                     .show()
             }
+            R.id.menuReset -> {
+                val dialog = AlertDialog.Builder(this)
+                dialog.setTitle("データリセット")
+                    .setMessage("リセットしてもよろしいですか？")
+                    .setPositiveButton("リセット") { _, _ ->
+                        val edit = sharedPreferences.edit()
+                        edit.putString("name", "プレイヤー1,プレイヤー2,プレイヤー3,プレイヤー4")
+                        edit.putString("data", "")
+                        edit.apply()
+                    }
+                    .setNegativeButton("キャンセル", null)
+                    .show()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
