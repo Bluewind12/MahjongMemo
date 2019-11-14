@@ -1,6 +1,7 @@
 package momonyan.mahjongmemo
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
@@ -365,6 +366,9 @@ class MainActivity : AppCompatActivity() {
                         edit.putString("name", "プレイヤー1,プレイヤー2,プレイヤー3,プレイヤー4")
                         edit.putString("data", "")
                         edit.apply()
+                        val intent = Intent(this, MainActivity::class.java)
+                        finish()
+                        startActivity(intent)
                     }
                     .setNegativeButton("キャンセル", null)
                     .show()
