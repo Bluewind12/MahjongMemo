@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "544968246505",
+    "firebase_url": "https://ma-zyan-memo-app.firebaseio.com",
+    "project_id": "ma-zyan-memo-app",
+    "storage_bucket": "ma-zyan-memo-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:544968246505:android:d98fcd23804ede63d25c78",
+        "android_client_info": {
+          "package_name": "momonyan.mahjongmemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "544968246505-3u9hggsnfbvf42s628iqu9se9j9bbpuo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "momonyan.mahjongmemo",
+            "certificate_hash": "76c37af5142f9c4fede2013d12a2194d4da262ad"
+          }
+        },
+        {
+          "client_id": "544968246505-c0p7knoc7q25ut0sv1vt9rqvqm163nb7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoQiHxHswCfUgBuLNZdxfKCarIjVlAbpA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "544968246505-c0p7knoc7q25ut0sv1vt9rqvqm163nb7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
