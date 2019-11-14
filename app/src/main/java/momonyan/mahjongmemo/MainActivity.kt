@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.RadioButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -312,9 +314,19 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nameEntry -> {
+                val inputFilter = InputFilter { source, _, _, _, _, _ ->
+                    if (source.toString().matches("^[,]$".toRegex())) {
+                        Toast.makeText(this, "使用できない文字です", Toast.LENGTH_LONG).show()
+                        ""
+                    } else source
+                }
                 val dialog = AlertDialog.Builder(this)
                 val dialogView = layoutInflater.inflate(R.layout.name_setting_dialog, null)
-
+                val filters = arrayOf(inputFilter)
+                dialogView.input1.filters = filters
+                dialogView.input2.filters = filters
+                dialogView.input3.filters = filters
+                dialogView.input4.filters = filters
 
                 dialog.setView(dialogView)
                     .setPositiveButton("OK") { _, _ ->
