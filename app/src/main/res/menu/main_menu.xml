@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/nameEntry"
+            android:icon="@drawable/icon_human"
+            app:showAsAction="ifRoom"
             android:title="名前登録" />
     <item
             android:id="@+id/menuReset"
+            android:icon="@drawable/icon_newdata"
+            app:showAsAction="ifRoom"
             android:title="データリセット" />
     <item
             android:id="@+id/menuDataOutput"
+            android:icon="@drawable/icon_capture"
+            app:showAsAction="ifRoom"
             android:title="画像出力" />
 </menu>
