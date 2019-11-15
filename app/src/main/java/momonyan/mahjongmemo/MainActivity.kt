@@ -17,6 +17,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.gridlayout.widget.GridLayout
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.data_add_dialog.view.*
 import kotlinx.android.synthetic.main.name_setting_dialog.view.*
@@ -32,9 +35,19 @@ class MainActivity : AppCompatActivity() {
     private var bufferDataArray = arrayListOf<String>()
     private lateinit var sharedPreferences: SharedPreferences
 
+    private lateinit var mInterstitialAd: InterstitialAd
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        MobileAds.initialize(this)
+
+        val adRequest = AdRequest.Builder().build()
+        mainAdView.loadAd(adRequest)
+
+
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = "ca-app-pub-6499097800180510/4554298812"
 
         sharedPreferences =
             getSharedPreferences("MarjongMemoData", Context.MODE_PRIVATE)
@@ -302,8 +315,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     arrayText[i].setBackgroundColor(color)
                 }
-
-
+                mInterstitialAd.loadAd(AdRequest.Builder().build())
             }
             .show()
     }
@@ -354,6 +366,7 @@ class MainActivity : AppCompatActivity() {
                         nameTextView2.text = names[1]
                         nameTextView3.text = names[2]
                         nameTextView4.text = names[3]
+                        mInterstitialAd.loadAd(AdRequest.Builder().build())
                     }
                     .show()
             }
