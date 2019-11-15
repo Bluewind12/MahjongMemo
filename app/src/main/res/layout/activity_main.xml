@@ -16,6 +16,7 @@
             android:clickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:focusable="true"
             app:srcCompat="@android:drawable/ic_menu_edit" />
 
     <ScrollView
@@ -46,7 +47,7 @@
                         android:id="@+id/titleTextView"
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
-                        android:text="名前"
+                        android:text="@string/name"
                         app:layout_column="0"
                         app:layout_columnWeight="1"
                         app:layout_row="0" />
@@ -55,7 +56,7 @@
                         android:id="@+id/nameTextView"
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
-                        android:text="プレイヤー1"
+                        android:text="@string/default_player_1"
                         app:layout_column="1"
                         app:layout_columnWeight="1"
                         app:layout_row="0" />
@@ -64,7 +65,7 @@
                         android:id="@+id/nameTextView2"
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
-                        android:text="プレイヤー2"
+                        android:text="@string/default_player_2"
                         app:layout_column="2"
                         app:layout_columnWeight="1"
                         app:layout_row="0" />
@@ -73,7 +74,7 @@
                         android:id="@+id/nameTextView3"
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
-                        android:text="プレイヤー3"
+                        android:text="@string/default_player_3"
                         app:layout_column="3"
                         app:layout_columnWeight="1"
                         app:layout_row="0" />
@@ -82,7 +83,7 @@
                         android:id="@+id/nameTextView4"
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
-                        android:text="プレイヤー4"
+                        android:text="@string/default_player_4"
                         app:layout_column="4"
                         app:layout_columnWeight="1"
                         app:layout_row="0" />

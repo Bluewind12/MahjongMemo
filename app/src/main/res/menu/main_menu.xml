@@ -4,15 +4,15 @@
     <item android:id="@+id/nameEntry"
             android:icon="@drawable/icon_human"
             app:showAsAction="ifRoom"
-            android:title="名前登録" />
+            android:title="@string/name_change" />
     <item
             android:id="@+id/menuReset"
             android:icon="@drawable/icon_newdata"
             app:showAsAction="ifRoom"
-            android:title="データリセット" />
+            android:title="@string/data_reset" />
     <item
             android:id="@+id/menuDataOutput"
             android:icon="@drawable/icon_capture"
             app:showAsAction="ifRoom"
-            android:title="画像出力" />
+            android:title="@string/capture_output" />
 </menu>

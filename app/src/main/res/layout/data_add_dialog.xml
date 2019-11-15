@@ -32,7 +32,7 @@
                         android:id="@+id/dataAddTextInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="点数"
+                        android:hint="@string/point"
                         android:inputType="numberSigned" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -51,7 +51,7 @@
                         android:id="@+id/dataAddTextInput2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="点数"
+                        android:hint="@string/point"
                         android:inputType="numberSigned" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,7 +70,7 @@
                         android:id="@+id/dataAddTextInput3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="点数"
+                        android:hint="@string/point"
                         android:inputType="numberSigned" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,7 +89,7 @@
                         android:id="@+id/dataAddTextInput4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="点数"
+                        android:hint="@string/point"
                         android:inputType="numberSigned" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,7 +97,7 @@
                     android:id="@+id/dataAddNameTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:text="@string/default_player_1"
                     app:layout_constraintBottom_toBottomOf="@+id/textInputLayout5"
                     app:layout_constraintEnd_toStartOf="@+id/guideline"
                     app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +107,7 @@
                     android:id="@+id/dataAddNameTextView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:text="@string/default_player_2"
                     app:layout_constraintBottom_toBottomOf="@+id/textInputLayout6"
                     app:layout_constraintEnd_toStartOf="@+id/guideline"
                     app:layout_constraintStart_toStartOf="parent"
@@ -117,7 +117,7 @@
                     android:id="@+id/dataAddNameTextView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:text="@string/default_player_3"
                     app:layout_constraintBottom_toBottomOf="@+id/textInputLayout7"
                     app:layout_constraintEnd_toStartOf="@+id/guideline"
                     app:layout_constraintStart_toStartOf="parent"
@@ -127,7 +127,7 @@
                     android:id="@+id/dataAddNameTextView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:text="@string/default_player_4"
                     app:layout_constraintBottom_toBottomOf="@+id/textInputLayout8"
                     app:layout_constraintEnd_toStartOf="@+id/guideline"
                     app:layout_constraintStart_toStartOf="parent"
@@ -157,25 +157,25 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:checked="true"
-                        android:text="東" />
+                        android:text="@string/stage_ton" />
 
                 <RadioButton
                         android:id="@+id/radioButton2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="南" />
+                        android:text="@string/stage_nan" />
 
                 <RadioButton
                         android:id="@+id/radioButton3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="西" />
+                        android:text="@string/stage_sya" />
 
                 <RadioButton
                         android:id="@+id/radioButton4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="北" />
+                        android:text="@string/stage_pe" />
             </RadioGroup>
 
             <RadioGroup
@@ -195,25 +195,25 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:checked="true"
-                        android:text="1局" />
+                        android:text="@string/count_1" />
 
                 <RadioButton
                         android:id="@+id/radioButton6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="2局" />
+                        android:text="@string/count_2" />
 
                 <RadioButton
                         android:id="@+id/radioButton7"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="3局" />
+                        android:text="@string/count_3" />
 
                 <RadioButton
                         android:id="@+id/radioButton8"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="4局" />
+                        android:text="@string/count_4" />
             </RadioGroup>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

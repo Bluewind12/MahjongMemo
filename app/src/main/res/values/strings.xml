@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">MahjongMemo</string>
+    <string name="name_change">名前登録</string>
+    <string name="data_reset">データリセット</string>
+    <string name="capture_output">画像出力</string>
+    <string name="name">名前</string>
+    <string name="default_player_1">プレイヤー1</string>
+    <string name="default_player_2">プレイヤー2</string>
+    <string name="default_player_3">プレイヤー3</string>
+    <string name="default_player_4">プレイヤー4</string>
+    <string name="point">点数</string>
+    <string name="stage_ton">東</string>
+    <string name="stage_nan">南</string>
+    <string name="stage_sya">西</string>
+    <string name="stage_pe">北</string>
+    <string name="count_1">1局</string>
+    <string name="count_2">2局</string>
+    <string name="count_3">3局</string>
+    <string name="count_4">4局</string>
+    <string name="human_1">1人目</string>
+    <string name="human_2">2人目</string>
+    <string name="human_3">3人目</string>
+    <string name="human_4">4人目</string>
 </resources>
