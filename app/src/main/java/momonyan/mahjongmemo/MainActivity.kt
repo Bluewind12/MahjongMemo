@@ -9,6 +9,7 @@ import android.text.InputFilter
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
@@ -324,11 +325,10 @@ class MainActivity : AppCompatActivity() {
                 val dialog = AlertDialog.Builder(this)
                 val dialogView = layoutInflater.inflate(R.layout.name_setting_dialog, null)
                 val filters = arrayOf(inputFilter)
-                dialogView.input1.filters = filters
-                dialogView.input2.filters = filters
-                dialogView.input3.filters = filters
-                dialogView.input4.filters = filters
-
+                setNameChangeEditTextData(dialogView.input1, names[0], filters)
+                setNameChangeEditTextData(dialogView.input2, names[1], filters)
+                setNameChangeEditTextData(dialogView.input3, names[2], filters)
+                setNameChangeEditTextData(dialogView.input4, names[3], filters)
                 dialog.setView(dialogView)
                     .setPositiveButton("OK") { _, _ ->
                         //データ入れ
@@ -375,6 +375,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setNameChangeEditTextData(
+        editText: EditText,
+        stringData: String,
+        filter: Array<InputFilter>
+    ) {
+        editText.setText(stringData, TextView.BufferType.EDITABLE)
+        editText.filters = filter
+
     }
 
     private fun arrayToString(array: ArrayList<String>): String {
