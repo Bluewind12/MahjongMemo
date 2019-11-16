@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/nameEntry"
-            android:icon="@drawable/icon_human"
-            app:showAsAction="ifRoom"
-            android:title="@string/name_change" />
+
     <item
             android:id="@+id/menuReset"
             android:icon="@drawable/icon_newdata"

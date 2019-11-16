@@ -20,6 +20,7 @@ import androidx.gridlayout.widget.GridLayout
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
+import com.leinardi.android.speeddial.SpeedDialView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.data_add_dialog.view.*
 import kotlinx.android.synthetic.main.name_setting_dialog.view.*
@@ -115,8 +116,60 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        //Fab
+        dataAddFloatActionButton.inflate(R.menu.fab_menu)
+        dataAddFloatActionButton.setOnActionSelectedListener(SpeedDialView.OnActionSelectedListener { actionItem ->
+            when (actionItem.id) {
+                R.id.fab_set_name -> {
+                    val inputFilter = InputFilter { source, _, _, _, _, _ ->
+                        if (source.toString().matches("^[,]$".toRegex())) {
+                            Toast.makeText(this, "使用できない文字です", Toast.LENGTH_LONG).show()
+                            ""
+                        } else source
+                    }
+                    val dialog = AlertDialog.Builder(this)
+                    val dialogView = layoutInflater.inflate(R.layout.name_setting_dialog, null)
+                    val filters = arrayOf(inputFilter)
+                    setNameChangeEditTextData(dialogView.input1, names[0], filters)
+                    setNameChangeEditTextData(dialogView.input2, names[1], filters)
+                    setNameChangeEditTextData(dialogView.input3, names[2], filters)
+                    setNameChangeEditTextData(dialogView.input4, names[3], filters)
+                    dialog.setView(dialogView)
+                        .setPositiveButton("OK") { _, _ ->
+                            //データ入れ
+                            names = arrayListOf(
+                                dialogView.input1.text.toString(),
+                                dialogView.input2.text.toString(),
+                                dialogView.input3.text.toString(),
+                                dialogView.input4.text.toString()
+                            )
+
+                            for (i in 0 until names.size) {
+                                if (names[i] == "") {
+                                    names[i] = "プレイヤー"
+                                }
+                            }
+
+                            val editor = sharedPreferences.edit()
+                            editor.putString("name", arrayToString(names))
+                            editor.apply()
+
+                            //表示変更
+                            nameTextView.text = names[0]
+                            nameTextView2.text = names[1]
+                            nameTextView3.text = names[2]
+                            nameTextView4.text = names[3]
+                            mInterstitialAd.loadAd(AdRequest.Builder().build())
+                        }
+                        .show()
+                }
+                R.id.fab_set_point -> {
+                    addDataDialogCreate()
+                }
+            }
+            false
+        })
         dataAddFloatActionButton.setOnClickListener {
-            addDataDialogCreate()
         }
 
     }
@@ -207,7 +260,6 @@ class MainActivity : AppCompatActivity() {
                     mainGridLayout.addView(textView, gridParams)
                     pointTexts.add(textView)
                 }
-
 
 
                 val gridParams = GridLayout.LayoutParams(
@@ -327,49 +379,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nameEntry -> {
-                val inputFilter = InputFilter { source, _, _, _, _, _ ->
-                    if (source.toString().matches("^[,]$".toRegex())) {
-                        Toast.makeText(this, "使用できない文字です", Toast.LENGTH_LONG).show()
-                        ""
-                    } else source
-                }
-                val dialog = AlertDialog.Builder(this)
-                val dialogView = layoutInflater.inflate(R.layout.name_setting_dialog, null)
-                val filters = arrayOf(inputFilter)
-                setNameChangeEditTextData(dialogView.input1, names[0], filters)
-                setNameChangeEditTextData(dialogView.input2, names[1], filters)
-                setNameChangeEditTextData(dialogView.input3, names[2], filters)
-                setNameChangeEditTextData(dialogView.input4, names[3], filters)
-                dialog.setView(dialogView)
-                    .setPositiveButton("OK") { _, _ ->
-                        //データ入れ
-                        names = arrayListOf(
-                            dialogView.input1.text.toString(),
-                            dialogView.input2.text.toString(),
-                            dialogView.input3.text.toString(),
-                            dialogView.input4.text.toString()
-                        )
-
-                        for (i in 0 until names.size) {
-                            if (names[i] == "") {
-                                names[i] = "プレイヤー"
-                            }
-                        }
-
-                        val editor = sharedPreferences.edit()
-                        editor.putString("name", arrayToString(names))
-                        editor.apply()
-
-                        //表示変更
-                        nameTextView.text = names[0]
-                        nameTextView2.text = names[1]
-                        nameTextView3.text = names[2]
-                        nameTextView4.text = names[3]
-                        mInterstitialAd.loadAd(AdRequest.Builder().build())
-                    }
-                    .show()
-            }
             R.id.menuReset -> {
                 val dialog = AlertDialog.Builder(this)
                 dialog.setTitle("データリセット")
