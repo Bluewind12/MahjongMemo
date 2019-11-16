@@ -34,7 +34,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
+
+    //Fire Base
     implementation 'com.google.firebase:firebase-analytics:17.2.1'
+    //AD
     implementation 'com.google.android.gms:play-services-ads:18.3.0'
+    //speed dial
+    implementation "com.leinardi.android:speed-dial:3.1.1"
+
 }
 apply plugin: 'com.google.gms.google-services'
