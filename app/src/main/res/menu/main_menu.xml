@@ -5,11 +5,30 @@
     <item
             android:id="@+id/menuReset"
             android:icon="@drawable/icon_newdata"
-            app:showAsAction="ifRoom"
-            android:title="@string/data_reset" />
+            android:title="@string/data_reset"
+            app:showAsAction="ifRoom" />
+
     <item
-            android:id="@+id/menuDataOutput"
+            android:id="@+id/menuPrivacyPolicy"
             android:icon="@drawable/icon_capture"
-            app:showAsAction="ifRoom"
-            android:title="@string/capture_output" />
+            android:title="プライバシーポリシー" />
+    <item
+            android:id="@+id/menuReview"
+            android:icon="@drawable/icon_capture"
+            android:title="レビューをする" />
+
+
+    <item
+            android:id="@+id/menuToolApp"
+            android:icon="@drawable/icon_capture"
+            android:title="麻雀ツールアプリへ" />
+    <item
+            android:id="@+id/menuRecorderApp"
+            android:icon="@drawable/icon_capture"
+            android:title="麻雀記録表アプリへ" />
+    <item
+            android:id="@+id/menuGensouApp"
+            android:icon="@drawable/icon_capture"
+            android:title="他の幻想乃桜工房アプリへ" />
+
 </menu>
