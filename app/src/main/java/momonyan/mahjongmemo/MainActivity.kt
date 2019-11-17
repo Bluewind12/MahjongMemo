@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.Gravity
@@ -394,6 +395,52 @@ class MainActivity : AppCompatActivity() {
                     }
                     .setNegativeButton("キャンセル", null)
                     .show()
+            }
+            R.id.menuPrivacyPolicy -> {
+                val url = Uri.parse(getString(R.string.privacy_url))
+                val intent = Intent(Intent.ACTION_VIEW, url)
+                startActivity(intent)
+            }
+            R.id.menuReview -> {
+                val url = Uri.parse(getString(R.string.review_url))
+                val intent = Intent(Intent.ACTION_VIEW, url)
+                startActivity(intent)
+            }
+            R.id.menuGensouApp -> {
+                val url = Uri.parse(getString(R.string.gensou_url))
+                val intent = Intent(Intent.ACTION_VIEW, url)
+                startActivity(intent)
+
+            }
+            R.id.menuToolApp -> {
+                val packageName = "momonyan.mahjongg_tools"
+                val className = "momonyan.mahjongg_tools.MainActivity"
+                intent.setClassName(packageName, className)
+                try {
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                        )
+                    )
+                }
+            }
+            R.id.menuRecorderApp -> {
+                val packageName = "momonyan.mahjongrecorder"
+                val className = "momonyan.mahjongrecorder.MainActivity"
+                intent.setClassName(packageName, className)
+                try {
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                        )
+                    )
+                }
             }
         }
         return super.onOptionsItemSelected(item)

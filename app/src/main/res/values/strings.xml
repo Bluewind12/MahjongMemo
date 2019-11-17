@@ -22,4 +22,14 @@
     <string name="human_3">3人目</string>
     <string name="human_4">4人目</string>
     <string name="point_add">点数登録</string>
+
+    <string name="privacy_url">https://www.gensounosakura.work/posts/</string>
+    <string name="review_url">https://play.google.com/store/apps/details?id=momonyan.mahjongmemo</string>
+    <string name="gensou_url">https://play.google.com/store/apps/developer?id=幻想乃桜工房</string>
+
+    <string name="privacy">プライバシーポリシー</string>
+    <string name="do_review">レビューをする</string>
+    <string name="do_tool_app">麻雀ツールアプリへ</string>
+    <string name="do_record_app">麻雀記録表アプリへ</string>
+    <string name="do_other_app">他の幻想乃桜工房アプリへ</string>
 </resources>
