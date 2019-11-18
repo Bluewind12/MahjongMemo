@@ -181,9 +181,9 @@ class MainActivity : AppCompatActivity() {
                     val format: String =
                         SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).toString()
                     val file =
-                        File(Environment.getExternalStorageDirectory(), format + ".jpeg");
+                        File(Environment.getExternalStorageDirectory(), format + ".jpeg")
                     // 指定したファイル名が無ければ作成する。
-                    file.parentFile.mkdir();
+                    file.parentFile.mkdir()
 
                     saveCapture(mainGridLayout, file)
 
@@ -504,9 +504,10 @@ class MainActivity : AppCompatActivity() {
             fos.flush()
             fos.close()
             Log.d("TAGTAG", "OK")
+            Toast.makeText(this,"画像を保存しました",Toast.LENGTH_LONG).show()
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.d("TAGTAG", "NG")
+            Toast.makeText(this,"保存を失敗しました",Toast.LENGTH_LONG).show()
         }
         Log.e("TAGTAG", "完成")
     }
@@ -514,10 +515,8 @@ class MainActivity : AppCompatActivity() {
 
     fun getViewCapture(view: View): Bitmap? {
         view.isDrawingCacheEnabled = true
-
         // Viewのキャプチャを取得
         val cache = view.drawingCache ?: return null
-
         val screenShot = Bitmap.createBitmap(cache)
         view.isDrawingCacheEnabled = false
         return screenShot
