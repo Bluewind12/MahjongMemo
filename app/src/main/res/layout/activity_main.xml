@@ -8,14 +8,22 @@
 
     <com.leinardi.android.speeddial.SpeedDialView
             android:id="@+id/dataAddFloatActionButton"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:clickable="true"
             android:focusable="true"
+            android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/mainAdView"
             app:layout_constraintEnd_toEndOf="parent"
+            app:sdMainFabClosedBackgroundColor="@color/colorAccent"
+            app:sdMainFabClosedIconColor="@color/whiteBackColor"
+            app:sdMainFabClosedSrc="@drawable/icon_menu"
+            app:sdMainFabOpenedBackgroundColor="@color/grayBackColor"
+            app:sdMainFabOpenedIconColor="@color/colorAccent"
+            app:sdMainFabOpenedSrc="@drawable/icon_cancel"
             app:srcCompat="@android:drawable/ic_menu_edit" />
 
     <ScrollView
