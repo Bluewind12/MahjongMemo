@@ -1,6 +1,7 @@
 package momonyan.mahjongmemo
 
 import android.Manifest
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -9,6 +10,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.provider.MediaStore
 import android.text.InputFilter
 import android.util.Log
 import android.view.Gravity
@@ -33,9 +35,6 @@ import kotlinx.android.synthetic.main.name_setting_dialog.view.*
 import permissions.dispatcher.*
 import java.io.File
 import java.io.FileOutputStream
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
 
 @RuntimePermissions
 class MainActivity : AppCompatActivity() {
@@ -49,6 +48,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var mInterstitialAd: InterstitialAd
+    private var saveCount = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
         names =
             stringToArray(sharedPreferences.getString("name", "プレイヤー1,プレイヤー2,プレイヤー3,プレイヤー4")!!)
-
+        saveCount = sharedPreferences.getInt("saveCount", 0)
         //表示変更
         nameTextView.text = names[0]
         nameTextView2.text = names[1]
@@ -502,11 +502,19 @@ class MainActivity : AppCompatActivity() {
             capture?.compress(Bitmap.CompressFormat.JPEG, 100, fos)
             fos.flush()
             fos.close()
-            Log.d("TAGTAG", "OK")
-            Toast.makeText(this,"画像を保存しました",Toast.LENGTH_LONG).show()
+            val contentValues = ContentValues().apply {
+                put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+                put("_data", file.absolutePath)
+            }
+            contentResolver.insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues
+            )
+            Toast.makeText(this, "画像を保存しました", Toast.LENGTH_LONG).show()
+            saveCount++
+            sharedPreferences.edit().putInt("saveCount", saveCount).apply()
         } catch (e: Exception) {
             e.printStackTrace()
-            Toast.makeText(this,"保存を失敗しました",Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "保存を失敗しました", Toast.LENGTH_LONG).show()
         }
         Log.e("TAGTAG", "完成")
     }
@@ -533,11 +541,13 @@ class MainActivity : AppCompatActivity() {
 
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun showContacts() {
-        val format: String =
-            SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).toString()
         val file =
-            File(Environment.getExternalStorageDirectory(), format + ".jpeg")
+            File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString() + "/Mahjong",
+                "$saveCount.jpeg"
+            )
         // 指定したファイル名が無ければ作成する。
+        Log.d("tagtag", file.toString())
         file.parentFile.mkdir()
 
         saveCapture(mainGridLayout, file)
