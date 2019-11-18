@@ -491,7 +491,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun saveCapture(view: View, file: File) {
+    private fun saveCapture(view: View, file: File) {
         // キャプチャを撮る
 
         val capture: Bitmap? = getViewCapture(view)
@@ -520,7 +520,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun getViewCapture(view: View): Bitmap? {
+    private fun getViewCapture(view: View): Bitmap? {
         view.isDrawingCacheEnabled = true
         // Viewのキャプチャを取得
         val cache = view.drawingCache ?: return null
