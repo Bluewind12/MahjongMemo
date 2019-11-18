@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MahjongMemo</string>
+    <string name="app_name">麻雀メモ！</string>
     <string name="name_change">名前設定</string>
     <string name="data_reset">データリセット</string>
     <string name="capture_output">画像出力</string>
