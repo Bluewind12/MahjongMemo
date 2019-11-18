@@ -9,7 +9,7 @@ android {
     buildToolsVersion "29.0.1"
     defaultConfig {
         applicationId "momonyan.mahjongmemo"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -41,6 +41,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:18.3.0'
     //speed dial
     implementation "com.leinardi.android:speed-dial:3.1.1"
+
+    //パーミッション
+    implementation 'net.taptappun.taku.kobayashi:runtimepermissionchecker:1.1.1'
 
 }
 apply plugin: 'com.google.gms.google-services'

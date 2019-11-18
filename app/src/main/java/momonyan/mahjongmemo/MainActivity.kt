@@ -3,13 +3,17 @@ package momonyan.mahjongmemo
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.text.InputFilter
+import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.TextView
@@ -25,6 +29,11 @@ import com.leinardi.android.speeddial.SpeedDialView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.data_add_dialog.view.*
 import kotlinx.android.synthetic.main.name_setting_dialog.view.*
+import java.io.File
+import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
@@ -167,11 +176,21 @@ class MainActivity : AppCompatActivity() {
                 R.id.fab_set_point -> {
                     addDataDialogCreate()
                 }
+                R.id.fab_output -> {
+                    val date = Date()
+                    val format: String =
+                        SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).toString()
+                    val file =
+                        File(Environment.getExternalStorageDirectory(), format + ".jpeg");
+                    // 指定したファイル名が無ければ作成する。
+                    file.parentFile.mkdir();
+
+                    saveCapture(mainGridLayout, file)
+
+                }
             }
             false
         })
-        dataAddFloatActionButton.setOnClickListener {
-        }
 
     }
 
@@ -471,5 +490,36 @@ class MainActivity : AppCompatActivity() {
         } else {
             return ArrayList()
         }
+    }
+
+    fun saveCapture(view: View, file: File) {
+        // キャプチャを撮る
+
+        val capture: Bitmap? = getViewCapture(view)
+
+        try {
+            val fos = FileOutputStream(file, false)
+            // 画像のフォーマットと画質と出力先を指定して保存
+            capture?.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+            fos.flush()
+            fos.close()
+            Log.d("TAGTAG", "OK")
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.d("TAGTAG", "NG")
+        }
+        Log.e("TAGTAG", "完成")
+    }
+
+
+    fun getViewCapture(view: View): Bitmap? {
+        view.isDrawingCacheEnabled = true
+
+        // Viewのキャプチャを取得
+        val cache = view.drawingCache ?: return null
+
+        val screenShot = Bitmap.createBitmap(cache)
+        view.isDrawingCacheEnabled = false
+        return screenShot
     }
 }
