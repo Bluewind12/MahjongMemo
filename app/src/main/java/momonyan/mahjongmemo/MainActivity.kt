@@ -1,5 +1,6 @@
 package momonyan.mahjongmemo
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -29,13 +30,14 @@ import com.leinardi.android.speeddial.SpeedDialView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.data_add_dialog.view.*
 import kotlinx.android.synthetic.main.name_setting_dialog.view.*
+import permissions.dispatcher.*
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-
+@RuntimePermissions
 class MainActivity : AppCompatActivity() {
 
     private var names = arrayListOf("プレイヤー1", "プレイヤー2", "プレイヤー3", "プレイヤー4")
@@ -47,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var mInterstitialAd: InterstitialAd
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -180,16 +183,7 @@ class MainActivity : AppCompatActivity() {
                     addDataDialogCreate()
                 }
                 R.id.fab_output -> {
-                    val date = Date()
-                    val format: String =
-                        SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).toString()
-                    val file =
-                        File(Environment.getExternalStorageDirectory(), format + ".jpeg")
-                    // 指定したファイル名が無ければ作成する。
-                    file.parentFile.mkdir()
-
-                    saveCapture(mainGridLayout, file)
-
+                    showContactsWithPermissionCheck()
                 }
             }
             false
@@ -525,5 +519,47 @@ class MainActivity : AppCompatActivity() {
         val screenShot = Bitmap.createBitmap(cache)
         view.isDrawingCacheEnabled = false
         return screenShot
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        // 自動生成された関数にパーミッション・リクエストの結果に応じた処理の呼び出しを委譲
+        onRequestPermissionsResult(requestCode, grantResults)
+    }
+
+    @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun showContacts() {
+        val format: String =
+            SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).toString()
+        val file =
+            File(Environment.getExternalStorageDirectory(), format + ".jpeg")
+        // 指定したファイル名が無ければ作成する。
+        file.parentFile.mkdir()
+
+        saveCapture(mainGridLayout, file)
+    }
+
+    @OnPermissionDenied(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onContactsDenied() {
+        Toast.makeText(this, "「許可しない」が選択されました", Toast.LENGTH_SHORT).show()
+    }
+
+    @OnShowRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun showRationaleForContacts(request: PermissionRequest) {
+        AlertDialog.Builder(this)
+            .setPositiveButton("許可") { _, _ -> request.proceed() }
+            .setNegativeButton("許可しない") { _, _ -> request.cancel() }
+            .setCancelable(false)
+            .setMessage("画像を保存するためにストレージにアクセスする必要があります。")
+            .show()
+    }
+
+    @OnNeverAskAgain(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onContactsNeverAskAgain() {
+        Toast.makeText(this, "「今後表示しない」が選択されました", Toast.LENGTH_SHORT).show()
     }
 }
