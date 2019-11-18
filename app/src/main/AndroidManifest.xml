@@ -14,7 +14,9 @@
         <meta-data
                 android:name="com.google.android.gms.ads.APPLICATION_ID"
                 android:value="ca-app-pub-6499097800180510~2311278854" />
-        <activity android:name=".MainActivity">
+        <activity
+                android:name=".MainActivity"
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
