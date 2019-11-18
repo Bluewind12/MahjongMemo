@@ -58,7 +58,8 @@ class MainActivity : AppCompatActivity() {
 
 
         mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = "ca-app-pub-6499097800180510/4554298812"
+        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
 
         sharedPreferences =
             getSharedPreferences("MarjongMemoData", Context.MODE_PRIVATE)
@@ -169,7 +170,9 @@ class MainActivity : AppCompatActivity() {
                             nameTextView2.text = names[1]
                             nameTextView3.text = names[2]
                             nameTextView4.text = names[3]
-                            mInterstitialAd.loadAd(AdRequest.Builder().build())
+                            if (mInterstitialAd.isLoaded) {
+                                mInterstitialAd.show()
+                            }
                         }
                         .show()
                 }
@@ -387,7 +390,9 @@ class MainActivity : AppCompatActivity() {
                     }
                     arrayText[i].setBackgroundColor(color)
                 }
-                mInterstitialAd.loadAd(AdRequest.Builder().build())
+                if (mInterstitialAd.isLoaded) {
+                    mInterstitialAd.show()
+                }
             }
             .show()
     }
