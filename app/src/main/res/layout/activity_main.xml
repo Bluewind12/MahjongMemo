@@ -96,6 +96,55 @@
                         app:layout_columnWeight="1"
                         app:layout_row="0" />
 
+                <TextView
+                        android:id="@+id/sumPointTitleTextView"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:text="合計"
+                        app:layout_column="0"
+                        app:layout_columnWeight="1"
+                        app:layout_row="1" />
+
+                <TextView
+                        android:id="@+id/sumPointTextView"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="0点"
+                        app:layout_column="1"
+                        app:layout_columnWeight="1"
+                        app:layout_row="1" />
+
+                <TextView
+                        android:id="@+id/sumPointTextView2"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="0点"
+                        app:layout_column="2"
+                        app:layout_columnWeight="1"
+                        app:layout_row="1" />
+
+                <TextView
+                        android:id="@+id/sumPointTextView3"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="0点"
+                        app:layout_column="3"
+                        app:layout_columnWeight="1"
+                        app:layout_row="1" />
+
+                <TextView
+                        android:id="@+id/sumPointTextView4"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="0点"
+                        app:layout_column="4"
+                        app:layout_columnWeight="1"
+                        app:layout_row="1" />
+
             </androidx.gridlayout.widget.GridLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

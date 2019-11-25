@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mInterstitialAd: InterstitialAd
     private var saveCount = 0
 
+    private var sumPoints = arrayListOf(0, 0, 0, 0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,8 +97,11 @@ class MainActivity : AppCompatActivity() {
             for (i in 0 until 4) {
                 val textView = TextView(this)
                 textView.text = saveDataArray[i + data + 1]
+                sumPoints[i] += saveDataArray[i + data + 1].toInt()
                 if (saveDataArray[i + data + 1].toInt() < 0) {
                     textView.setTextColor(Color.RED)
+                } else {
+                    textView.setTextColor(Color.BLACK)
                 }
                 val gridParams =
                     GridLayout.LayoutParams(
@@ -129,6 +133,7 @@ class MainActivity : AppCompatActivity() {
                 changeDataDialogCreate(pointTexts, stageTextView)
             }
         }
+        pointAddCheck()
 
         //Fab
         dataAddFloatActionButton.inflate(R.menu.fab_menu)
@@ -263,8 +268,11 @@ class MainActivity : AppCompatActivity() {
                 for (i in 0 until points.size) {
                     val textView = TextView(this)
                     textView.text = points[i].toString()
+                    sumPoints[i] += points[i]
                     if (points[i] < 0) {
                         textView.setTextColor(Color.RED)
+                    } else {
+                        textView.setTextColor(Color.BLACK)
                     }
                     val gridParams =
                         GridLayout.LayoutParams(
@@ -277,7 +285,7 @@ class MainActivity : AppCompatActivity() {
                     mainGridLayout.addView(textView, gridParams)
                     pointTexts.add(textView)
                 }
-
+                pointAddCheck()
 
                 val gridParams = GridLayout.LayoutParams(
                     GridLayout.spec(flowCount),
@@ -325,8 +333,10 @@ class MainActivity : AppCompatActivity() {
             dialogView.dataAddTextInput4
         )
 
+        val bufferPoints = arrayListOf(0, 0, 0, 0)
         for (index in 0 until dataInputTextViews.size) {
             dataInputTextViews[index].setText(arrayText[index].text, TextView.BufferType.EDITABLE)
+            bufferPoints[index] = arrayText[index].text.toString().toInt()
         }
         when (stageText.text.toString().substring(0, 1)) {
             "東" -> dialogView.radioGroup.check(R.id.radioButton)
@@ -379,14 +389,19 @@ class MainActivity : AppCompatActivity() {
                 }
                 for (i in 0 until points.size) {
                     arrayText[i].text = points[i].toString()
+                    sumPoints[i] += points[i]
+                    sumPoints[i] -= bufferPoints[i]
                     if (points[i] < 0) {
                         arrayText[i].setTextColor(Color.RED)
+                    } else {
+                        arrayText[i].setTextColor(Color.BLACK)
                     }
                     arrayText[i].setBackgroundColor(color)
                 }
                 if (mInterstitialAd.isLoaded) {
                     mInterstitialAd.show()
                 }
+                pointAddCheck()
             }
             .show()
     }
@@ -571,5 +586,56 @@ class MainActivity : AppCompatActivity() {
     @OnNeverAskAgain(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun onContactsNeverAskAgain() {
         Toast.makeText(this, "「今後表示しない」が選択されました", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun pointAddCheck() {
+        //Title
+        sumPointTitleTextView.layoutParams =
+            GridLayout.LayoutParams(
+                GridLayout.spec(flowCount + 1),
+                GridLayout.spec(0, 1.0f)
+            )
+
+
+        val sumPointTextViews =
+            arrayListOf(sumPointTextView, sumPointTextView2, sumPointTextView3, sumPointTextView4)
+
+        for (i in 0 until sumPointTextViews.size) {
+            sumPointTextViews[i].layoutParams =
+                GridLayout.LayoutParams(
+                    GridLayout.spec(flowCount + 1),
+                    GridLayout.spec(i + 1, 1.0f)
+                )
+            sumPointTextViews[i].text = sumPoints[i].toString()
+            if (sumPoints[i] < 0) {
+                sumPointTextViews[i].setTextColor(Color.RED)
+            } else {
+                sumPointTextViews[i].setTextColor(Color.BLACK)
+            }
+        }
+        //PL2
+        sumPointTextView2.layoutParams =
+            GridLayout.LayoutParams(
+                GridLayout.spec(flowCount + 1),
+                GridLayout.spec(2, 1.0f)
+            )
+        sumPointTextView2.text = sumPoints[1].toString()
+
+        //PL3
+        sumPointTextView3.layoutParams =
+            GridLayout.LayoutParams(
+                GridLayout.spec(flowCount + 1),
+                GridLayout.spec(3, 1.0f)
+            )
+        sumPointTextView3.text = sumPoints[2].toString()
+
+        //PL4
+        sumPointTextView4.layoutParams =
+            GridLayout.LayoutParams(
+                GridLayout.spec(flowCount + 1),
+                GridLayout.spec(4, 1.0f)
+            )
+        sumPointTextView4.text = sumPoints[3].toString()
+
     }
 }
