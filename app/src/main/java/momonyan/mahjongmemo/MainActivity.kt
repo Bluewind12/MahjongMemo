@@ -52,6 +52,8 @@ class MainActivity : AppCompatActivity() {
 
     private var sumPoints = arrayListOf(0, 0, 0, 0)
 
+    private var pointTextViews = arrayListOf<TextView>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -79,9 +81,12 @@ class MainActivity : AppCompatActivity() {
 
         saveDataArray = stringToArray(sharedPreferences.getString("data", "")!!)
         bufferDataArray = saveDataArray
+
+        //保存データ表示
         for (data in 0 until saveDataArray.size step 5) {
             val stageTextView = TextView(this)
             stageTextView.text = saveDataArray[0 + data]
+            pointTextViews.add(stageTextView)
             var color = 0
             when (stageTextView.text.toString().substring(1, 3)) {
                 "1局", "3局" -> {
@@ -96,6 +101,7 @@ class MainActivity : AppCompatActivity() {
             val pointTexts = arrayListOf<TextView>()
             for (i in 0 until 4) {
                 val textView = TextView(this)
+                pointTextViews.add(textView)
                 textView.text = saveDataArray[i + data + 1]
                 sumPoints[i] += saveDataArray[i + data + 1].toInt()
                 if (saveDataArray[i + data + 1].toInt() < 0) {
@@ -252,6 +258,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 val stageTextView = TextView(this)
+                pointTextViews.add(stageTextView)
                 stageTextView.text = stageTitleText + stageNumberText
                 var color = 0
                 when (stageNumberText) {
@@ -267,6 +274,7 @@ class MainActivity : AppCompatActivity() {
                 val pointTexts = arrayListOf<TextView>()
                 for (i in 0 until points.size) {
                     val textView = TextView(this)
+                    pointTextViews.add(textView)
                     textView.text = points[i].toString()
                     sumPoints[i] += points[i]
                     if (points[i] < 0) {
@@ -326,25 +334,28 @@ class MainActivity : AppCompatActivity() {
         dialogView.dataAddNameTextView3.text = names[2]
         dialogView.dataAddNameTextView4.text = names[3]
 
+        //EditText配列
         val dataInputTextViews = arrayListOf(
             dialogView.dataAddTextInput,
             dialogView.dataAddTextInput2,
             dialogView.dataAddTextInput3,
             dialogView.dataAddTextInput4
         )
-
         val bufferPoints = arrayListOf(0, 0, 0, 0)
+
+        //EditTextへのデータ入力
         for (index in 0 until dataInputTextViews.size) {
             dataInputTextViews[index].setText(arrayText[index].text, TextView.BufferType.EDITABLE)
             bufferPoints[index] = arrayText[index].text.toString().toInt()
         }
+
+        //ラジオボタンの初期設定
         when (stageText.text.toString().substring(0, 1)) {
             "東" -> dialogView.radioGroup.check(R.id.radioButton)
             "南" -> dialogView.radioGroup.check(R.id.radioButton2)
             "西" -> dialogView.radioGroup.check(R.id.radioButton3)
             "北" -> dialogView.radioGroup.check(R.id.radioButton4)
         }
-
         when (stageText.text.toString().substring(1, 2)) {
             "1" -> dialogView.radioGroup2.check(R.id.radioButton5)
             "2" -> dialogView.radioGroup2.check(R.id.radioButton6)
@@ -352,6 +363,7 @@ class MainActivity : AppCompatActivity() {
             "4" -> dialogView.radioGroup2.check(R.id.radioButton8)
         }
 
+        //ダイアログ
         addDialog.setView(dialogView)
             .setPositiveButton("変更") { _, _ ->
                 points = arrayListOf()
@@ -398,6 +410,20 @@ class MainActivity : AppCompatActivity() {
                     }
                     arrayText[i].setBackgroundColor(color)
                 }
+                val pointStrings = arrayListOf<String>()
+                for (pointText in pointTextViews) {
+                    pointStrings.add(pointText.text.toString())
+                    Log.d("DataCheck", pointText.text.toString())
+                }
+                Log.d("DataCheckAAAA", arrayToString(bufferDataArray))
+
+                bufferDataArray = pointStrings
+                val editor = sharedPreferences.edit()
+                editor.putString("data", arrayToString(bufferDataArray))
+
+                Log.d("DataCheckAAAA", arrayToString(bufferDataArray))
+
+                editor.apply()
                 if (mInterstitialAd.isLoaded) {
                     mInterstitialAd.show()
                 }
